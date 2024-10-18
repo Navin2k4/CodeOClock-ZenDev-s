@@ -1,11 +1,11 @@
-import React from 'react';
-import { 
-  AppBar, 
-  Toolbar, 
-  Typography, 
-  Button, 
-  Container, 
-  Box, 
+import React, { useState } from 'react';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Container,
+  Box,
   IconButton,
   useMediaQuery,
   useTheme,
@@ -13,8 +13,8 @@ import {
 import { styled } from '@mui/system';
 import { AccountCircle, Agriculture } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import FarmerDataForm from '../components/inputForm';
 
-// Custom theme
 const theme = createTheme({
   palette: {
     primary: {
@@ -59,12 +59,16 @@ const ContentBox = styled(Box)(({ theme }) => ({
 }));
 
 const HomePage = () => {
+  const [showForm, setShowForm] = useState(false); // Manage form visibility state
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleGetStarted = () => {
+    setShowForm(true); // Show the form when button is clicked
+  };
 
-    console.log("Get Started clicked");
+  const handleBack = () => {
+    setShowForm(false); // Hide the form and go back to the hero section
   };
 
   return (
@@ -81,56 +85,65 @@ const HomePage = () => {
         </Toolbar>
       </AppBar>
 
-      <HeroSection>
-        <ContentBox>
-          <Typography variant={isMobile ? 'h4' : 'h3'} component="h1" color="primary.main" gutterBottom>
-            Empowering Farmers with Smart Technology
-          </Typography>
-          <Typography variant="body1" color="text.secondary" paragraph>
-            Farmer's Friend provides real-time, data-driven advisory services to optimize crop yields and manage resources efficiently. Our platform incorporates weather forecasts, soil health data, pest alerts, and market prices to help you make informed decisions.
-          </Typography>
-          <Button 
-            variant="contained" 
-            color="secondary" 
-            size="large" 
-            onClick={handleGetStarted}
-          >
-            Get Started
-          </Button>
-        </ContentBox>
-      </HeroSection>
+      {/* Conditionally render HeroSection or FormComponent */}
+      {showForm ? (
+        <Container maxWidth="sm" sx={{ mt: 4 }}>
+          <FarmerDataForm onBack={handleBack} />
+        </Container>
+      ) : (
+        <>
+          <HeroSection>
+            <ContentBox>
+              <Typography variant={isMobile ? 'h4' : 'h3'} component="h1" color="primary.main" gutterBottom>
+                Empowering Farmers with Smart Technology
+              </Typography>
+              <Typography variant="body1" color="text.secondary" paragraph>
+                Farmer's Friend provides real-time, data-driven advisory services to optimize crop yields and manage resources efficiently.
+              </Typography>
+              <Button
+                variant="contained"
+                color="secondary"
+                size="large"
+                onClick={handleGetStarted}
+              >
+                Get Started
+              </Button>
+            </ContentBox>
+          </HeroSection>
 
-      <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
-        <Typography variant="h4" component="h2" gutterBottom color="primary">
-          Key Features
-        </Typography>
-        <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} justifyContent="space-between">
-          <Box flex={1} p={2}>
-            <Typography variant="h6" gutterBottom color="secondary">
-              Predictive Analytics
+          <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+            <Typography variant="h4" component="h2" gutterBottom color="primary">
+              Key Features
             </Typography>
-            <Typography variant="body2">
-              Optimize crop performance with AI-driven recommendations for planting, fertilization, and irrigation.
-            </Typography>
-          </Box>
-          <Box flex={1} p={2}>
-            <Typography variant="h6" gutterBottom color="secondary">
-              Remote Accessibility
-            </Typography>
-            <Typography variant="body2">
-              Access vital information and insights regardless of your location or connectivity challenges.
-            </Typography>
-          </Box>
-          <Box flex={1} p={2}>
-            <Typography variant="h6" gutterBottom color="secondary">
-              Community Forum
-            </Typography>
-            <Typography variant="body2">
-              Connect with other farmers to share experiences, strategies, and foster collaborative knowledge exchange.
-            </Typography>
-          </Box>
-        </Box>
-      </Container>
+            <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} justifyContent="space-between">
+              <Box flex={1} p={2}>
+                <Typography variant="h6" gutterBottom color="secondary">
+                  Predictive Analytics
+                </Typography>
+                <Typography variant="body2">
+                  Optimize crop performance with AI-driven recommendations for planting, fertilization, and irrigation.
+                </Typography>
+              </Box>
+              <Box flex={1} p={2}>
+                <Typography variant="h6" gutterBottom color="secondary">
+                  Remote Accessibility
+                </Typography>
+                <Typography variant="body2">
+                  Access vital information and insights regardless of your location or connectivity challenges.
+                </Typography>
+              </Box>
+              <Box flex={1} p={2}>
+                <Typography variant="h6" gutterBottom color="secondary">
+                  Community Forum
+                </Typography>
+                <Typography variant="body2">
+                  Connect with other farmers to share experiences, strategies, and foster collaborative knowledge exchange.
+                </Typography>
+              </Box>
+            </Box>
+          </Container>
+        </>
+      )}
     </ThemeProvider>
   );
 };
