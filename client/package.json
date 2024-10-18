@@ -15,8 +15,13 @@
     "@google/generative-ai": "^0.21.0",
     "@mui/icons-material": "^6.1.4",
     "@mui/material": "^6.1.4",
+<<<<<<< HEAD
     "chart.js": "^4.4.5",
     "dotenv": "^16.4.5",
+=======
+    "lucide": "^0.453.0",
+    "lucide-react": "^0.453.0",
+>>>>>>> f85cc1ede99ec52d00d586549684fcf71bfe7ac6
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
