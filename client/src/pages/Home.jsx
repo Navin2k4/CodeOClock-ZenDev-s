@@ -79,12 +79,12 @@ const HomePage = () => {
           <Typography
             variant={isMobile ? "h4" : "h3"}
             component="h1"
-            color="primary.main"
+            color="success"
             gutterBottom
           >
             Empowering Farmers with Smart Technology
           </Typography>
-          <Typography variant="body1" color="text.secondary" paragraph>
+          <Typography variant="body1" color="success" paragraph>
             Farmer's Friend provides real-time, data-driven advisory services to
             optimize crop yields and manage resources efficiently.
           </Typography>
@@ -95,7 +95,7 @@ const HomePage = () => {
       </HeroSection>
 
       <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
-        <Typography variant="h4" component="h2" gutterBottom color="primary">
+        <Typography variant="h4" component="h2" gutterBottom color="success">
           Key Features
         </Typography>
         <Box

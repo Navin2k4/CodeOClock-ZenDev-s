@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const InputForm = () => {
+  const navigate = useNavigate();
   const [farmerName, setFarmerName] = useState("");
   const [location, setLocation] = useState("");
   const [cropType, setCropType] = useState("");
@@ -13,17 +15,16 @@ const InputForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
-      farmerName,
       location,
       cropType,
       soilType,
       growthStage,
-      recentIrrigation,
-      fertilizationPractices,
-      pestObservations,
+      // recentIrrigation,
+      // fertilizationPractices,
+      // pestObservations,
     };
     console.log("Collected Farmer Data: ", formData);
-    // Add API call here
+    navigate('/analyse')
   };
 
   const styles = {
@@ -118,24 +119,12 @@ const InputForm = () => {
         </div>
         <form onSubmit={handleSubmit} style={styles.form}>
           <div style={styles.inputGroup}>
-            <label style={styles.label} htmlFor="farmerName">
-              Farmer Name
-            </label>
-            <input
-              id="farmerName"
-              style={styles.input}
-              type="text"
-              value={farmerName}
-              onChange={(e) => setFarmerName(e.target.value)}
-              required
-            />
-          </div>
-          <div style={styles.inputGroup}>
             <label style={styles.label} htmlFor="location">
               Location
             </label>
             <input
               id="location"
+              placeholder="Eg: Madurai"
               style={styles.input}
               type="text"
               value={location}
@@ -197,7 +186,7 @@ const InputForm = () => {
               <option value="ripening">Ripening</option>
             </select>
           </div>
-          <div style={styles.inputGroup}>
+          {/* <div style={styles.inputGroup}>
             <label style={styles.label} htmlFor="recentIrrigation">
               Recent Irrigation (in mm)
             </label>
@@ -233,7 +222,7 @@ const InputForm = () => {
               onChange={(e) => setPestObservations(e.target.value)}
               placeholder="e.g., Signs of pest attack on leaves"
             />
-          </div>
+          </div> */}
           <button type="submit" style={styles.button}>
             Submit
           </button>

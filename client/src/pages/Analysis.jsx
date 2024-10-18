@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Tabs, Tab, Box, Typography } from '@mui/material';
+import Irrigation from '../components/AnalyzedComponents/Irrigation';
+import DisplayWeatherData from '../components/DisplayWeatherData';
 
 // Helper function for tab content
 function TabPanel(props) {
@@ -49,8 +51,8 @@ const Analysis = () => {
 
       {/* Tab Content */}
       <TabPanel value={value} index={0}>
-        <Typography variant="h6">Irrigation Details</Typography>
-        <p>Get irrigation data and recommendations.</p>
+        <DisplayWeatherData />
+        <Irrigation />
       </TabPanel>
 
       <TabPanel value={value} index={1}>

@@ -4,11 +4,11 @@ import React from 'react'
 
 export const NavBar = () => {
   return (
-    <AppBar position="static" color="primary">
+    <AppBar position="static" color="success">
         <Toolbar>
           <Agriculture sx={{ mr: 2 }} />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Farmer's Friend
+            FarmZ
           </Typography>
           <IconButton color="inherit" aria-label="sign up">
             <AccountCircle />
