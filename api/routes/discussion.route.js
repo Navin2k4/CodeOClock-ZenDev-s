@@ -1,3 +1,8 @@
 import express from 'express';
+import { createPost, getPosts } from '../controllers/discussion.controller.js';
+const router = express.Router();
 
-const app = express();
+router.get('/posts', getPosts);
+router.post('/createpost', createPost);
+
+export default router;

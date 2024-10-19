@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Leaf, Cloud, Users, ChevronRight, Facebook, Twitter, Instagram } from "lucide-react";
+import { Leaf, Cloud, Users, ChevronRight, Facebook, Twitter, Instagram, MessageSquare } from "lucide-react"; // Import icon
 
 const HomePage = () => {
   return (
@@ -58,6 +58,16 @@ const HomePage = () => {
               Connect with other farmers to share experiences, strategies, and foster collaborative knowledge exchange.
             </p>
           </div>
+        </div>
+
+        {/* Add the Message Button Here */}
+        <div className="mt-8 text-center">
+          <Link to="/community">
+            <button className="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-6 rounded-full text-lg transition duration-300 transform hover:scale-105 flex items-center justify-center">
+              <MessageSquare className="mr-2" size={24} />
+              Message
+            </button>
+          </Link>
         </div>
       </div>
 
