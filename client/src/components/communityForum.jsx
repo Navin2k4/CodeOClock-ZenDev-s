@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext'; // Adjust the path as necessary
 import { Camera, Send, ThumbsUp, Heart, Laugh, Angry } from 'lucide-react';
+import { useSelector } from 'react-redux';
 
 const CommunityForum = () => {
-  const { currentUser } = useContext(AuthContext); // Get current user from AuthContext
+  const { currentUser } = useSelector((state) => state.user);
   const [content, setContent] = useState('');
   const [image, setImage] = useState(null);
   const [posts, setPosts] = useState([]);

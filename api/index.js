@@ -5,7 +5,7 @@ import authRoutes from "./routes/auth.route.js";
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
 import cors from 'cors';
-import dotenv from "dotenv";
+
 dotenv.config();
 
 dotenv.config();
@@ -26,8 +26,6 @@ mongoose
 app.use('/api/auth', authRoutes);
 app.use("/api/post",postRoute)
 app.use("/api/weather", weatherRoutes); 
-
-
 
 
 const port = process.env.PORT || 3000;
