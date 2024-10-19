@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { Tabs, Tab, Box, Typography } from '@mui/material';
+import React, { useState } from "react";
+import { Tabs, Tab, Box, Typography } from "@mui/material";
+import DisplayWeatherData from "../components/DisplayWeatherData";
+import { useLocation } from "react-router-dom";
+import DisplayFertilizerData from "../components/DisplayFertilizerData";
 
 // Helper function for tab content
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -26,11 +28,14 @@ function TabPanel(props) {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
 const Analysis = () => {
+  const loc = useLocation();
+  const { state: formData } = loc;
+
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -38,7 +43,7 @@ const Analysis = () => {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: "100%" }}>
       {/* Tabs */}
       <Tabs value={value} onChange={handleChange} aria-label="analysis tabs">
         <Tab label="Irrigation" {...a11yProps(0)} />
@@ -49,13 +54,11 @@ const Analysis = () => {
 
       {/* Tab Content */}
       <TabPanel value={value} index={0}>
-        <Typography variant="h6">Irrigation Details</Typography>
-        <p>Get irrigation data and recommendations.</p>
+        <DisplayWeatherData data={formData} />
       </TabPanel>
 
       <TabPanel value={value} index={1}>
-        <Typography variant="h6">Fertilizer Details</Typography>
-        <p>Get recommendations on fertilizer usage.</p>
+        <DisplayFertilizerData data={formData} />
       </TabPanel>
 
       <TabPanel value={value} index={2}>

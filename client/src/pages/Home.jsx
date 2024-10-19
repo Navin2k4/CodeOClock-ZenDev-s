@@ -5,9 +5,6 @@ import { Leaf, Cloud, Users, ChevronRight, Facebook, Twitter, Instagram, Message
 const HomePage = () => {
   return (
     <div className="min-h-screen bg-green-50">
-      {/* Navigation */}
-      
-      {/* Hero Section */}
       <div className="relative h-screen bg-cover bg-center" style={{ backgroundImage: "url(https://static.vecteezy.com/system/resources/thumbnails/030/353/613/small_2x/natural-background-ai-generated-photo.jpg)" }}>
         <div className="absolute inset-0 bg-black opacity-60"></div>
         <div className="relative container mx-auto flex items-center justify-center h-full">
