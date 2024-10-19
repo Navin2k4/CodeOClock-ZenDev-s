@@ -5,19 +5,6 @@ import { Link } from 'react-router-dom'
 
 export const NavBar = () => {
   return (
-<<<<<<< HEAD
-    <AppBar position="static" color="success">
-        <Toolbar>
-          <Agriculture sx={{ mr: 2 }} />
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            FarmZ
-          </Typography>
-          <IconButton color="inherit" aria-label="sign up">
-            <AccountCircle />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-=======
 <nav className="bg-green-800 text-white p-4">
         <div className="container mx-auto flex justify-between items-center">
           <Link to="/" className="text-2xl font-bold">Farmer's Friend</Link>
@@ -29,7 +16,6 @@ export const NavBar = () => {
         </div>
       </nav>
 
->>>>>>> f85cc1ede99ec52d00d586549684fcf71bfe7ac6
 
       
   )

@@ -13,7 +13,9 @@ import {
 } from "recharts";
 import { GoogleGenerativeAI } from "@google/generative-ai"; // Ensure this package is installed
 
-const DisplayWeatherData = () => {
+const DisplayWeatherData = (formData) => {
+  const { location, cropType, soilType, growthStage } = formData.data;
+
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,7 +24,7 @@ const DisplayWeatherData = () => {
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
-        const response = await fetch("/api/weather/getData");
+        const response = await fetch(`/api/weather/getData/${location}`);
         if (!response.ok) {
           throw new Error("Failed to fetch weather data");
         }
@@ -90,13 +92,12 @@ const DisplayWeatherData = () => {
         - Crop Stage: flowering
         - Irrigation System: drip
         
-        Provide tailored irrigation advice for the upcoming week.
-        i need it in a proper format and i need a very  brief short recommendation 
+        Provide tailored irrigation advice for the upcoming week give me simple as possible. 
         `;
 
     try {
       const result = await model.generateContent(prompt);
-      setIrrigationAdvice(result.response.text());
+      setIrrigationAdvice(formatIrrigationAdvice(result.response.text())); // Format the advice here
     } catch (error) {
       console.error("Error generating irrigation advice:", error);
       setIrrigationAdvice("Could not generate irrigation advice at this time.");
@@ -108,7 +109,7 @@ const DisplayWeatherData = () => {
     return <div className="text-center text-red-500">Error: {error}</div>;
 
   // Prepare data for charts
-  const days = weatherData.list.slice(0, 7);
+  const days = weatherData.list;
   const chartData = days.map((item) => ({
     date: new Date(item.dt_txt).toLocaleDateString("en-US", {
       weekday: "short",
@@ -137,13 +138,42 @@ const DisplayWeatherData = () => {
   const avgHumidity =
     chartData.reduce((acc, curr) => acc + curr.humidity, 0) /
       chartData.length || 0; // Handle NaN
+  const formatIrrigationAdvice = (rawAdvice) => {
+    // Split the advice into lines and initialize an array for formatted advice
+    const lines = rawAdvice.split("\n").filter((line) => line.trim() !== "");
+    const formattedAdvice = [];
+
+    // Loop through each line and apply formatting based on your specifications
+    lines.forEach((line) => {
+      if (line.startsWith("##")) {
+        // If the line starts with ##, treat it as a header
+        formattedAdvice.push(
+          <h3 key={line} className="text-xl font-bold mt-4">
+            {line.replace("## ", "")}
+          </h3>
+        );
+      } else if (line.startsWith("*")) {
+        // If the line starts with *, treat it as a bullet point
+        formattedAdvice.push(
+          <li key={line} className="ml-5 list-disc">
+            {line.replace("* ", "")}
+          </li>
+        );
+      } else {
+        // Otherwise, treat it as regular text
+        formattedAdvice.push(
+          <p key={line} className="mt-2">
+            {line}
+          </p>
+        );
+      }
+    });
+
+    return formattedAdvice;
+  };
 
   return (
     <div className="min-h-screen py-8 px-4">
-      <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
-        7-Day Weather Forecast for {weatherData.city?.name}
-      </h1>
-
       <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
         <h2 className="text-3xl font-bold mb-4 text-center">
           Weekly Weather Statistics
@@ -167,7 +197,7 @@ const DisplayWeatherData = () => {
         <h2 className="text-2xl font-bold text-center mb-4">
           Irrigation Recommendation
         </h2>
-        <p className="text-lg text-center">
+        <p className="text-lg text-left">
           Based on the weather analysis for the week, the recommendation is:{" "}
           <strong>{irrigationAdvice}</strong>
         </p>
@@ -214,56 +244,74 @@ const DisplayWeatherData = () => {
         </ResponsiveContainer>
       </div>
 
-      {/* Weather Statistics (Detailed Data in Cards) */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {days.map((item, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-xl shadow-lg p-4 transform hover:scale-105 transition-transform duration-200"
-          >
-            <div className="text-lg font-semibold text-gray-900">
-              {new Date(item.dt_txt).toLocaleDateString("en-US", {
-                weekday: "long",
-                day: "numeric",
-                month: "short",
-              })}
-            </div>
+      {/* Weather Statistics (Horizontal Scroll) */}
+      <div className="relative ">
+        <button
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full z-10"
+          onClick={() => (document.getElementById("slider").scrollLeft -= 300)}
+        >
+          {"<"}
+        </button>
 
-            <div className="grid grid-cols-2 gap-4 mt-4">
-              {/* Temperature */}
-              <div className="bg-blue-100 p-2 rounded-lg text-center">
-                <p className="text-sm text-gray-500">Temperature</p>
-                <p className="text-lg font-bold">
-                  {(item.main.temp - 273.15).toFixed(2)} °C
-                </p>
-                <div className="text-xs text-gray-600">
-                  Min: {(item.main.temp_min - 273.15).toFixed(2)} °C | Max:{" "}
-                  {(item.main.temp_max - 273.15).toFixed(2)} °C
+        <button
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full z-10"
+          onClick={() => (document.getElementById("slider").scrollLeft += 300)}
+        >
+          {">"}
+        </button>
+
+        <div id="slider" className="overflow-x-auto scroll-smooth">
+          <div className="flex gap-6">
+            {days.map((item, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl shadow-lg p-4 min-w-[250px] transform hover:scale-105 transition-transform duration-200"
+              >
+                <div className="text-lg font-semibold text-gray-900">
+                  {new Date(item.dt_txt).toLocaleDateString("en-US", {
+                    weekday: "long",
+                    day: "numeric",
+                    month: "short",
+                  })}
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 mt-4">
+                  {/* Temperature */}
+                  <div className="bg-blue-100 p-2 rounded-lg text-center">
+                    <p className="text-sm text-gray-500">Temperature</p>
+                    <p className="text-lg font-bold">
+                      {(item.main.temp - 273.15).toFixed(2)} °C
+                    </p>
+                    <div className="text-xs text-gray-600">
+                      Min: {(item.main.temp_min - 273.15).toFixed(2)} °C | Max:{" "}
+                      {(item.main.temp_max - 273.15).toFixed(2)} °C
+                    </div>
+                  </div>
+
+                  {/* Rainfall */}
+                  <div className="bg-blue-100 p-2 rounded-lg text-center">
+                    <p className="text-sm text-gray-500">Rainfall</p>
+                    <p className="text-lg font-bold">
+                      {item.rain ? `${item.rain["3h"]} mm` : "0 mm"}
+                    </p>
+                  </div>
+
+                  {/* Humidity */}
+                  <div className="bg-yellow-100 p-2 rounded-lg text-center">
+                    <p className="text-sm text-gray-500">Humidity</p>
+                    <p className="text-lg font-bold">{item.main.humidity} %</p>
+                  </div>
+
+                  {/* Wind Speed */}
+                  <div className="bg-green-100 p-2 rounded-lg text-center">
+                    <p className="text-sm text-gray-500">Wind Speed</p>
+                    <p className="text-lg font-bold">{item.wind.speed} m/s</p>
+                  </div>
                 </div>
               </div>
-
-              {/* Rainfall */}
-              <div className="bg-blue-100 p-2 rounded-lg text-center">
-                <p className="text-sm text-gray-500">Rainfall</p>
-                <p className="text-lg font-bold">
-                  {item.rain ? `${item.rain["3h"]} mm` : "0 mm"}
-                </p>
-              </div>
-
-              {/* Humidity */}
-              <div className="bg-yellow-100 p-2 rounded-lg text-center">
-                <p className="text-sm text-gray-500">Humidity</p>
-                <p className="text-lg font-bold">{item.main.humidity} %</p>
-              </div>
-
-              {/* Wind Speed */}
-              <div className="bg-green-100 p-2 rounded-lg text-center">
-                <p className="text-sm text-gray-500">Wind Speed</p>
-                <p className="text-lg font-bold">{item.wind.speed} m/s</p>
-              </div>
-            </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );

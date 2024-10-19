@@ -4,35 +4,7 @@ import { Leaf, Cloud, Users, ChevronRight, Facebook, Twitter, Instagram } from "
 
 const HomePage = () => {
   return (
-<<<<<<< HEAD
-    <ThemeProvider theme={theme}>
-      <HeroSection>
-        <ContentBox>
-          <Typography
-            variant={isMobile ? "h4" : "h3"}
-            component="h1"
-            color="success"
-            gutterBottom
-          >
-            Empowering Farmers with Smart Technology
-          </Typography>
-          <Typography variant="body1" color="success" paragraph>
-            Farmer's Friend provides real-time, data-driven advisory services to
-            optimize crop yields and manage resources efficiently.
-          </Typography>
-          <Link to="/getdata">
-            <Button>Get Started</Button>
-          </Link>
-        </ContentBox>
-      </HeroSection>
-
-      <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
-        <Typography variant="h4" component="h2" gutterBottom color="success">
-=======
     <div className="min-h-screen bg-green-50">
-      {/* Navigation */}
-      
-      {/* Hero Section */}
       <div className="relative h-screen bg-cover bg-center" style={{ backgroundImage: "url(https://static.vecteezy.com/system/resources/thumbnails/030/353/613/small_2x/natural-background-ai-generated-photo.jpg)" }}>
         <div className="absolute inset-0 bg-black opacity-60"></div>
         <div className="relative container mx-auto flex items-center justify-center h-full">
@@ -56,7 +28,6 @@ const HomePage = () => {
       {/* Key Features Section */}
       <div className="container mx-auto py-16 px-4">
         <h2 className="text-4xl font-bold text-center text-green-800 mb-12">
->>>>>>> f85cc1ede99ec52d00d586549684fcf71bfe7ac6
           Key Features
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
