@@ -3,6 +3,8 @@ import { Tabs, Tab, Box, Typography } from "@mui/material";
 import DisplayWeatherData from "../components/DisplayWeatherData";
 import { useLocation } from "react-router-dom";
 import DisplayFertilizerData from "../components/DisplayFertilizerData";
+import MarketAnalysis from "../components/MarketAnalysis";
+import PesticideDashboard from "../components/PesticideDashboard";
 
 // Helper function for tab content
 function TabPanel(props) {
@@ -48,7 +50,7 @@ const Analysis = () => {
       <Tabs value={value} onChange={handleChange} aria-label="analysis tabs">
         <Tab label="Irrigation" {...a11yProps(0)} />
         <Tab label="Fertilizer" {...a11yProps(1)} />
-        <Tab label="Market Price Prediction" {...a11yProps(2)} />
+        <Tab label="Market Price Analysis" {...a11yProps(2)} />
         <Tab label="Pesticide Usage" {...a11yProps(3)} />
       </Tabs>
 
@@ -58,17 +60,15 @@ const Analysis = () => {
       </TabPanel>
 
       <TabPanel value={value} index={1}>
-        <DisplayFertilizerData data={formData} />
+        <DisplayFertilizerData initialData={formData} />
       </TabPanel>
 
       <TabPanel value={value} index={2}>
-        <Typography variant="h6">Market Price Prediction</Typography>
-        <p>Market price prediction details and analysis.</p>
+        <MarketAnalysis />
       </TabPanel>
 
       <TabPanel value={value} index={3}>
-        <Typography variant="h6">Pesticide Usage</Typography>
-        <p>Get pesticide usage information and recommendations.</p>
+        <PesticideDashboard />
       </TabPanel>
     </Box>
   );

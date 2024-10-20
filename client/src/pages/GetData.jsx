@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setFormData } from "../../redux/form/formSlice";
 const GetData = () => {
   const navigate = useNavigate();
   const [location, setLocation] = useState("");
   const [cropType, setCropType] = useState("");
   const [soilType, setSoilType] = useState("");
   const [growthStage, setGrowthStage] = useState("");
+  const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
@@ -15,6 +18,7 @@ const GetData = () => {
       growthStage,
     };
     console.log("Collected Farmer Data: ", formData);
+    dispatch(setFormData(formData));
     navigate("/analyse", { state: formData });
   };
 

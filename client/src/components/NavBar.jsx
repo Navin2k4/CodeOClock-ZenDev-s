@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { signOutSuccess } from "../../redux/user/userSlice";
+import { MessageSquare } from "lucide-react";
 
 export const NavBar = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -25,9 +26,9 @@ export const NavBar = () => {
   };
   return (
     <nav className="bg-green-800 text-white p-4">
-      <div className="container mx-auto flex justify-between items-center">
+      <div className=" flex justify-between items-center">
         <Link to="/" className="text-2xl font-bold">
-          Farmer's Friend
+          FarmZ
         </Link>
         <div className="space-x-4">
           {currentUser ? (
@@ -35,9 +36,14 @@ export const NavBar = () => {
               <h1 className="uppercase">
                 {currentUser && currentUser.username}
               </h1>
+              
+          <Link to='/community' className="bg-green-200 text-black p-2 rounded-full ">
+          <MessageSquare className="" size={24} />
+
+          </Link>
               <Link
                 to="/signin"
-                className="hover:text-green-700 bg-white text-black p-2 rounded-lg uppercase transition duration-300"
+                className="hover:text-green-700 bg-white text-black  rounded-lg uppercase transition duration-300"
               >
                 <Button onClick={handleSignout}>SignOut</Button>
               </Link>

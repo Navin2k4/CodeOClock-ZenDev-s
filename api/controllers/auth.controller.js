@@ -12,6 +12,10 @@ export const register = async (req, res, next) => {
   }
 
   try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return next(errorHandler(400, "Email already exists"));
+    }
     // Hash the password
     const hashedPassword = bcryptjs.hashSync(password, 10);
 

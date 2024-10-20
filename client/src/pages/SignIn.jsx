@@ -37,9 +37,10 @@ const SignIn = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-green-50">
+    <div className="h-[90vh] flex items-center justify-center bg-green-50">
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
-        <h2 className="text-3xl font-bold text-green-700 text-center mb-6">Sign In</h2>
+        <h2 className="text-4xl font-bold text-green-600 text-center mb-6">FarmZ</h2>
+        <h2 className="text-xl font-bold text-center mb-6">Sign In</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-green-800">Email Address</label>

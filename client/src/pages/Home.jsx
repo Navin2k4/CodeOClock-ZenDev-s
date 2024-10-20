@@ -16,9 +16,9 @@ const HomePage = () => {
 
 
   return (
-    <div className="min-h-screen bg-green-50">
+    <div className=" bg-green-50">
       <div
-        className="relative h-screen bg-cover bg-center"
+        className="relative h-[80vh] bg-cover bg-center"
         style={{
           backgroundImage:
             "url(https://static.vecteezy.com/system/resources/thumbnails/030/353/613/small_2x/natural-background-ai-generated-photo.jpg)",
@@ -27,10 +27,10 @@ const HomePage = () => {
         <div className="absolute inset-0 bg-black opacity-60"></div>
         <div className="relative container mx-auto flex items-center justify-center h-full">
           <div className="text-center text-white p-8 bg-green-800 bg-opacity-40 rounded-lg shadow-2xl backdrop-blur-sm max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-left">
               Empowering Farmers with Smart Technology
             </h1>
-            <p className="text-xl mb-8 max-w-2xl mx-auto">
+            <p className="text-xl mb-8  mx-auto text-left">
               Farmer's Friend provides real-time, data-driven advisory services
               to optimize crop yields and manage resources efficiently.
             </p>
@@ -88,7 +88,7 @@ const HomePage = () => {
         {/* Add the Message Button Here */}
         <div className="mt-8 text-center">
           <Link to="/community">
-            <button className="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-6 rounded-full text-lg transition duration-300 transform hover:scale-105 flex items-center justify-center">
+            <button className="bg-green-600 w-full hover:bg-green-500 text-white font-bold py-3 px-6 rounded-full text-lg transition duration-300 transform hover:scale-105 flex items-center justify-center">
               <MessageSquare className="mr-2" size={24} />
               Message
             </button>
@@ -118,7 +118,7 @@ const HomePage = () => {
       <footer className="bg-green-900 text-white py-2">
         <div className="container mx-auto">
           <div className="mt-3 mb-3 pt-8 border-t border-green-700 text-center">
-            <p>&copy; 2023 Farmer's Friend. All rights reserved.</p>
+            <p>&copy; 2023 FarmZ. All rights reserved.</p>
           </div>
         </div>
       </footer>
